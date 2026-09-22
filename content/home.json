@@ -1,0 +1,11 @@
+{
+  "hero_title": "🇺🇬 Empowering Children, 🌍 Connecting Continents",
+  "hero_subtitle": "We bridge Uganda's children with helpful sponsors — creating futures filled with hope, education, and opportunity.",
+  "hero_button": "🤝 Become a Sponsor",
+  "stats": [
+    { "number": "150+", "label": "👶 Children Supported" },
+    { "number": "50+", "label": "🤝 Active Sponsors" },
+    { "number": "15+", "label": "👨‍💼 Staff Members" },
+    { "number": "🌍", "label": "Supported by Sponsors Worldwide" }
+  ]
+}
