@@ -1,0 +1,111 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "photos"
+public_folder: "/photos"
+
+site_url: https://classy-halva-dfc320.netlify.app
+display_url: https://classy-halva-dfc320.netlify.app
+logo_url: https://classy-halva-dfc320.netlify.app/images/logo.png
+
+collections:
+  - name: "settings"
+    label: "⚙️ Site Settings"
+    files:
+      - name: "site"
+        label: "Contact & Social Info"
+        file: "content/site.json"
+        fields:
+          - {label: "Organization Name", name: "org_name", widget: "string"}
+          - {label: "Tagline", name: "tagline", widget: "string"}
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "Phone", name: "phone", widget: "string"}
+          - {label: "Address", name: "address", widget: "string"}
+          - {label: "Facebook URL", name: "facebook", widget: "string", required: false}
+          - {label: "Instagram URL", name: "instagram", widget: "string", required: false}
+          - {label: "Twitter URL", name: "twitter", widget: "string", required: false}
+          - {label: "YouTube URL", name: "youtube", widget: "string", required: false}
+
+  - name: "homepage"
+    label: "🏠 Homepage"
+    files:
+      - name: "home"
+        label: "Hero & Stats"
+        file: "content/home.json"
+        fields:
+          - {label: "Hero Title", name: "hero_title", widget: "string"}
+          - {label: "Hero Subtitle", name: "hero_subtitle", widget: "text"}
+          - {label: "Hero Button Text", name: "hero_button", widget: "string"}
+          - label: "Stats"
+            name: "stats"
+            widget: "list"
+            fields:
+              - {label: "Number", name: "number", widget: "string"}
+              - {label: "Label", name: "label", widget: "string"}
+
+  - name: "about"
+    label: "ℹ️ About Page"
+    files:
+      - name: "about"
+        label: "Vision / Mission / Values"
+        file: "content/about.json"
+        fields:
+          - {label: "Intro Text", name: "intro", widget: "text"}
+          - {label: "Vision", name: "vision", widget: "text"}
+          - {label: "Mission", name: "mission", widget: "text"}
+          - {label: "Values (one per line)", name: "values", widget: "list", field: {label: "Value", name: "value", widget: "string"}}
+          - {label: "Partnership Text", name: "partnership", widget: "text"}
+
+  - name: "children"
+    label: "👶 Children List"
+    folder: "content/children"
+    create: true
+    slug: "{{fields.name}}"
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Age", name: "age", widget: "number"}
+      - {label: "Status", name: "status", widget: "select", options: ["Active", "Graduated", "Sponsored"]}
+      - {label: "Guardian", name: "guardian", widget: "string"}
+      - {label: "Photo", name: "photo", widget: "image", required: false}
+
+  - name: "sponsors"
+    label: "🤝 Sponsors List"
+    folder: "content/sponsors"
+    create: true
+    slug: "{{fields.name}}"
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Country Flag Emoji", name: "flag", widget: "string", hint: "e.g. 🇳🇱"}
+      - {label: "Country", name: "country", widget: "string"}
+      - {label: "Supports (child name)", name: "supports", widget: "string"}
+      - {label: "Donation Amount", name: "donation", widget: "string"}
+      - {label: "Sponsor Since", name: "since", widget: "string"}
+
+  - name: "success_stories"
+    label: "🏆 Success Stories"
+    folder: "content/success-stories"
+    create: true
+    slug: "{{fields.title}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Story", name: "story", widget: "text"}
+      - {label: "Sponsored By", name: "sponsored_by", widget: "string", required: false}
+
+  - name: "gallery"
+    label: "📸 Gallery"
+    folder: "content/gallery"
+    create: true
+    slug: "{{fields.caption}}"
+    fields:
+      - {label: "Image", name: "image", widget: "image"}
+      - {label: "Caption", name: "caption", widget: "string"}
+
+  - name: "faq"
+    label: "❓ FAQ"
+    folder: "content/faq"
+    create: true
+    slug: "{{fields.question}}"
+    fields:
+      - {label: "Question", name: "question", widget: "string"}
+      - {label: "Answer", name: "answer", widget: "text"}
