@@ -11,7 +11,7 @@ async function loadJSON(path) {
   }
 }
 
-// ---------- SITE SETTINGS (every page) ----------
+// ---------- SITE SETTINGS ----------
 async function applySiteSettings() {
   const site = await loadJSON('/content/site.json');
   if (!site) return;
@@ -30,20 +30,20 @@ async function applySiteSettings() {
 async function applyHome() {
   const home = await loadJSON('/content/home.json');
   if (!home) return;
-  document.querySelectorAll('[data-home="hero_title"]').forEach(el => el.textContent = home.hero_title);
+  document.querySelectorAll('[data-home="hero_title"]').forEach(el => el.innerHTML = home.hero_title);
   document.querySelectorAll('[data-home="hero_subtitle"]').forEach(el => el.textContent = home.hero_subtitle);
   document.querySelectorAll('[data-home="hero_button"]').forEach(el => el.textContent = home.hero_button);
   if (home.stats) {
-    const statsContainer = document.querySelector('[data-home="stats"]');
-    if (statsContainer) {
-      statsContainer.innerHTML = home.stats.map(s =>
-        `<div class="stat"><div class="stat-number">${s.number}</div><div class="stat-label">${s.label}</div></div>`
+    const box = document.querySelector('[data-home="stats"]');
+    if (box) {
+      box.innerHTML = home.stats.map(s =>
+        `<div class="stat"><div class="number">${s.number}</div><div class="label">${s.label}</div></div>`
       ).join('');
     }
   }
 }
 
-// ---------- ABOUT PAGE ---------
+// ---------- ABOUT ----------
 async function applyAbout() {
   const about = await loadJSON('/content/about.json');
   if (!about) return;
@@ -52,11 +52,58 @@ async function applyAbout() {
   document.querySelectorAll('[data-about="mission"]').forEach(el => el.textContent = about.mission);
   document.querySelectorAll('[data-about="partnership"]').forEach(el => el.textContent = about.partnership);
   if (about.values) {
-    const valuesBox = document.querySelector('[data-about="values"]');
-    if (valuesBox) {
-      valuesBox.innerHTML = about.values.map(v => `<li>${v}</li>`).join('');
-    }
+    const box = document.querySelector('[data-about="values"]');
+    if (box) box.innerHTML = about.values.map(v => `<li>${v}</li>`).join('');
   }
+}
+
+// ---------- CHILDREN ----------
+async function applyChildren() {
+  const box = document.querySelector('[data-list="children"]');
+  if (!box) return;
+  const index = await loadJSON('/content/children/index.json');
+  if (!index || !index.items) return;
+  const children = await Promise.all(index.items.map(name => loadJSON(`/content/children/${name}.json`)));
+  box.innerHTML = children.filter(Boolean).map(c => `
+    <div class="card">
+      ${c.photo ? `<img src="${c.photo}" alt="${c.name}" style="width:100%;border-radius:8px;">` : ''}
+      <h3>${c.name}</h3>
+      <p>Age: ${c.age} | ${c.status}</p>
+      <p class="small">Guardian: ${c.guardian}</p>
+    </div>
+  `).join('');
+}
+
+// ---------- SPONSORS ----------
+async function applySponsors() {
+  const box = document.querySelector('[data-list="sponsors"]');
+  if (!box) return;
+  const index = await loadJSON('/content/sponsors/index.json');
+  if (!index || !index.items) return;
+  const sponsors = await Promise.all(index.items.map(name => loadJSON(`/content/sponsors/${name}.json`)));
+  box.innerHTML = sponsors.filter(Boolean).map(s => `
+    <div class="card">
+      <h3>${s.name}</h3>
+      <p>${s.flag || '🌍'} ${s.country}</p>
+      <p class="small">Donating: ${s.donation}</p>
+    </div>
+  `).join('');
+}
+
+// ---------- SUCCESS STORIES ----------
+async function applySuccessStories() {
+  const box = document.querySelector('[data-list="success_stories"]');
+  if (!box) return;
+  const index = await loadJSON('/content/success-stories/index.json');
+  if (!index || !index.items) return;
+  const stories = await Promise.all(index.items.map(name => loadJSON(`/content/success-stories/${name}.json`)));
+  box.innerHTML = stories.filter(Boolean).map(s => `
+    <div class="card">
+      <h3>${s.title}</h3>
+      <p>${s.story}</p>
+      ${s.sponsored_by ? `<p class="small">Sponsored by: ${s.sponsored_by}</p>` : ''}
+    </div>
+  `).join('');
 }
 
 // ---------- RUN ----------
@@ -64,4 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   applySiteSettings();
   applyHome();
   applyAbout();
+  applyChildren();
+  applySponsors();
+  applySuccessStories();
 });
