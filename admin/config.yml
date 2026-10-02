@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: walakirachristopher-ship-it/ARMS-OF-SUPPORT
   branch: main
+  base_url: https://arms-of-support.pages.dev
+  auth_endpoint: /api/auth
 
 media_folder: "photos"
 public_folder: "/photos"
