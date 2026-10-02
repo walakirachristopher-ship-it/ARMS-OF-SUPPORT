@@ -61,10 +61,9 @@ async function applyAbout() {
 async function applyChildren() {
   const box = document.querySelector('[data-list="children"]');
   if (!box) return;
-  const index = await loadJSON('/content/children/index.json');
-  if (!index || !index.items) return;
-  const children = await Promise.all(index.items.map(name => loadJSON(`/content/children/${name}.json`)));
-  box.innerHTML = children.filter(Boolean).map(c => `
+  const data = await loadJSON('/content/children.json');
+  if (!data || !data.items) return;
+  box.innerHTML = data.items.map(c => `
     <div class="card">
       ${c.photo ? `<img src="${c.photo}" alt="${c.name}" style="width:100%;border-radius:8px;">` : ''}
       <h3>${c.name}</h3>
@@ -78,10 +77,9 @@ async function applyChildren() {
 async function applySponsors() {
   const box = document.querySelector('[data-list="sponsors"]');
   if (!box) return;
-  const index = await loadJSON('/content/sponsors/index.json');
-  if (!index || !index.items) return;
-  const sponsors = await Promise.all(index.items.map(name => loadJSON(`/content/sponsors/${name}.json`)));
-  box.innerHTML = sponsors.filter(Boolean).map(s => `
+  const data = await loadJSON('/content/sponsors.json');
+  if (!data || !data.items) return;
+  box.innerHTML = data.items.map(s => `
     <div class="card">
       <h3>${s.name}</h3>
       <p>${s.flag || '🌍'} ${s.country}</p>
@@ -94,10 +92,9 @@ async function applySponsors() {
 async function applySuccessStories() {
   const box = document.querySelector('[data-list="success_stories"]');
   if (!box) return;
-  const index = await loadJSON('/content/success-stories/index.json');
-  if (!index || !index.items) return;
-  const stories = await Promise.all(index.items.map(name => loadJSON(`/content/success-stories/${name}.json`)));
-  box.innerHTML = stories.filter(Boolean).map(s => `
+  const data = await loadJSON('/content/success-stories.json');
+  if (!data || !data.items) return;
+  box.innerHTML = data.items.map(s => `
     <div class="card">
       <h3>${s.title}</h3>
       <p>${s.story}</p>
