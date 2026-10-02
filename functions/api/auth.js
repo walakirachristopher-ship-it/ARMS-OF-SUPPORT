@@ -6,7 +6,7 @@ export async function onRequest(context) {
   if (url.pathname.endsWith('/auth') && !url.searchParams.has('code')) {
     const params = new URLSearchParams({
       client_id: env.GITHUB_CLIENT_ID,
-      redirect_uri: `${url.origin}/api/auth`,
+      redirect_uri: url.origin + '/api/auth',
       scope: 'repo,user',
     });
     return Response.redirect(
