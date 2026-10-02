@@ -7,7 +7,6 @@ public_folder: "/photos"
 
 site_url: https://classy-halva-dfc320.netlify.app
 display_url: https://classy-halva-dfc320.netlify.app
-logo_url: https://classy-halva-dfc320.netlify.app/images/logo.png
 
 collections:
   - name: "settings"
@@ -54,58 +53,83 @@ collections:
           - {label: "Intro Text", name: "intro", widget: "text"}
           - {label: "Vision", name: "vision", widget: "text"}
           - {label: "Mission", name: "mission", widget: "text"}
-          - {label: "Values (one per line)", name: "values", widget: "list", field: {label: "Value", name: "value", widget: "string"}}
+          - {label: "Values", name: "values", widget: "list", field: {label: "Value", name: "value", widget: "string"}}
           - {label: "Partnership Text", name: "partnership", widget: "text"}
 
   - name: "children"
-    label: "👶 Children List"
-    folder: "content/children"
-    create: true
-    slug: "{{fields.name}}"
-    fields:
-      - {label: "Name", name: "name", widget: "string"}
-      - {label: "Age", name: "age", widget: "number"}
-      - {label: "Status", name: "status", widget: "select", options: ["Active", "Graduated", "Sponsored"]}
-      - {label: "Guardian", name: "guardian", widget: "string"}
-      - {label: "Photo", name: "photo", widget: "image", required: false}
+    label: "👶 Children"
+    files:
+      - name: "children"
+        label: "Children List"
+        file: "content/children.json"
+        fields:
+          - label: "Children"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Name", name: "name", widget: "string"}
+              - {label: "Age", name: "age", widget: "number"}
+              - {label: "Status", name: "status", widget: "select", options: ["Active", "Graduated", "Sponsored"]}
+              - {label: "Guardian", name: "guardian", widget: "string"}
+              - {label: "Photo", name: "photo", widget: "image", required: false}
 
   - name: "sponsors"
-    label: "🤝 Sponsors List"
-    folder: "content/sponsors"
-    create: true
-    slug: "{{fields.name}}"
-    fields:
-      - {label: "Name", name: "name", widget: "string"}
-      - {label: "Country Flag Emoji", name: "flag", widget: "string", hint: "e.g. 🇳🇱"}
-      - {label: "Country", name: "country", widget: "string"}
-      - {label: "Supports (child name)", name: "supports", widget: "string"}
-      - {label: "Donation Amount", name: "donation", widget: "string"}
-      - {label: "Sponsor Since", name: "since", widget: "string"}
+    label: "🤝 Sponsors"
+    files:
+      - name: "sponsors"
+        label: "Sponsors List"
+        file: "content/sponsors.json"
+        fields:
+          - label: "Sponsors"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Name", name: "name", widget: "string"}
+              - {label: "Country Flag Emoji", name: "flag", widget: "string", hint: "e.g. 🇳🇱"}
+              - {label: "Country", name: "country", widget: "string"}
+              - {label: "Supports (child name)", name: "supports", widget: "string"}
+              - {label: "Donation Amount", name: "donation", widget: "string"}
+              - {label: "Sponsor Since", name: "since", widget: "string"}
 
   - name: "success_stories"
     label: "🏆 Success Stories"
-    folder: "content/success-stories"
-    create: true
-    slug: "{{fields.title}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Story", name: "story", widget: "text"}
-      - {label: "Sponsored By", name: "sponsored_by", widget: "string", required: false}
+    files:
+      - name: "success_stories"
+        label: "Success Stories List"
+        file: "content/success-stories.json"
+        fields:
+          - label: "Stories"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Story", name: "story", widget: "text"}
+              - {label: "Sponsored By", name: "sponsored_by", widget: "string", required: false}
 
   - name: "gallery"
     label: "📸 Gallery"
-    folder: "content/gallery"
-    create: true
-    slug: "{{fields.caption}}"
-    fields:
-      - {label: "Image", name: "image", widget: "image"}
-      - {label: "Caption", name: "caption", widget: "string"}
+    files:
+      - name: "gallery"
+        label: "Gallery Images"
+        file: "content/gallery.json"
+        fields:
+          - label: "Images"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Image", name: "image", widget: "image"}
+              - {label: "Caption", name: "caption", widget: "string"}
 
   - name: "faq"
     label: "❓ FAQ"
-    folder: "content/faq"
-    create: true
-    slug: "{{fields.question}}"
-    fields:
-      - {label: "Question", name: "question", widget: "string"}
-      - {label: "Answer", name: "answer", widget: "text"}
+    files:
+      - name: "faq"
+        label: "FAQ List"
+        file: "content/faq.json"
+        fields:
+          - label: "Questions"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Question", name: "question", widget: "string"}
+              - {label: "Answer", name: "answer", widget: "text"}
